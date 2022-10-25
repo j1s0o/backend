@@ -1,0 +1,25 @@
+{
+  "name": "nodejs-restapi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/j1s0o/nodejs-api.git"
+  },
+  "author": "j1s0o",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/j1s0o/nodejs-api/issues"
+  },
+  "homepage": "https://github.com/j1s0o/nodejs-api#readme",
+  "dependencies": {
+    "@types/node": "^18.11.5",
+    "express": "^4.18.2",
+    "nodemon": "^2.0.20"
+  }
+}
