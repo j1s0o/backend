@@ -1,11 +1,12 @@
 import http , {Server , IncomingMessage , ServerResponse} from 'http'
-import { StringUtil } from './util/StringUtil';
+import { StringUtil }  from './util/StringUtil';
+import { MathUtils } from './util/MathUtil';
 
 const server:Server = http.createServer((req:IncomingMessage , res:ServerResponse ) => {
     res.setHeader('Content-Type', 'text/html')
-    let str:string = "jisoo kim"
-    let lenstr:number = StringUtil.len(str)
-    res.end(`<h1>${lenstr}</h1>`)
+    let num:number = 2
+    let result:string = MathUtils.Multiple(num)
+    res.end(`${result}`)
 });
 
 
