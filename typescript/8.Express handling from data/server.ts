@@ -13,8 +13,6 @@ app.get('/' , (req:express.Request, res:express.Response) => {
     res.status(200).send(`<h1>cc</h1>`)
 })
 
-
-
 const hostname:string = '127.0.0.1'
 const port:number = 3000
 
