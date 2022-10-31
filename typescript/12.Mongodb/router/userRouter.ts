@@ -1,6 +1,6 @@
 import express from 'express'
-import bcrypt from 'bcryptjs'
 import {validationResult , body } from 'express-validator'
+import UserControl from '../controller/UserControl'
 
 const userRouter:express.Router = express.Router()
 
@@ -15,24 +15,8 @@ userRouter.get('/test' , (req:express.Request, res:express.Response) =>{
 userRouter.post('/register' , [
     body('username').not().isEmpty().withMessage('Where is your username ???'),
     body('password').not().isEmpty().withMessage(`Fuck why u don\'t have a password`)
-] ,async (req:express.Request, res:express.Response)=>{
-    let {username , password} = req.body
-    const err = validationResult(req)
-    if(!err.isEmpty()){
-        return res.status(400).json({errors : err.array()})
-    }
-    try {
-        let salt = await bcrypt.genSalt(10)
-        let hashpassword = await bcrypt.hash(password , salt)
-        res.status(200).json({
-            username : username,
-            password : hashpassword
-        })
-    }
-    catch (err){
-        res.statusCode = 404
-    }
-    
-})
+] ,UserControl.Register)
+
+userRouter.post('/login' , UserControl.Login) 
 
 export default userRouter

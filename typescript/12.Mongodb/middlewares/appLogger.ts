@@ -1,15 +1,9 @@
-import express from 'express'
+import chalk from 'chalk';
+export default class Logger{
+    public static log = (args : any) => this.info(args)
+    public static info = (args : any) => console.log(chalk.blue(`[${new Date().toLocaleString()}] [INFO]`) , typeof args === 'string' ? chalk.blueBright(args) : args)
+    public static error = (args : any) => console.log(chalk.red(`[${new Date().toLocaleString()}] [INFO]`) , typeof args === 'string' ? chalk.redBright(args) : args)
+    public static warn = (args : any) => console.log(chalk.yellow(`[${new Date().toLocaleString()}] [INFO]`) , typeof args === 'string' ? chalk.yellowBright(args) : args)
 
-
-let appLogger = (req:express.Request , res:express.Response , next:express.NextFunction) =>{
-    let url = req.url
-    let method = req.method
-    let date = new Date().toLocaleDateString()
-    let time = new Date().toLocaleTimeString()
-    let result:string = `${url} - ${method} - ${date} - ${time}`
-    console.log(result)
-    next()
 }
 
-
-export default appLogger
