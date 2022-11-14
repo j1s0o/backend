@@ -1,12 +1,13 @@
 import express from 'express'
 import mongoose from 'mongoose'
-import path from 'path'
-
+import dotenv from 'dotenv'
 import User from './../models/User'
 import bcrypt from 'bcryptjs'
+import jwt from 'jsonwebtoken'
 import { validationResult } from 'express-validator'
 
-
+dotenv.config()
+const SECRET_TOKEN : any = process.env.SECRET_TOKEN
 const Register = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     const { username, password } = req.body
     const err = validationResult(req)
@@ -48,10 +49,11 @@ const Login =   (req: express.Request, res: express.Response, next: express.Next
         else {
                 bcrypt.compare(password, user.password, function (err, result) {
                 if (result === false) {
-                    return res.status(500)
+                    return res.json({ process : false })
                 }
                 else {
-                    return res.json({ success : true })
+                    const session = jwt.sign(user.username  ,SECRET_TOKEN)
+                    return res.json({ process : true  , session : session})
                 }
             })
         }

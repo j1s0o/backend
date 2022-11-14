@@ -9,9 +9,25 @@
 </head>
 
 <body>
-    <%- include('../custom/rightclick.ejs') %> 
-
-    <script src="script/login.js"></script>
+    <form id="Login-Form">
+        <div class="left">
+            <h1>Welcome</h1>
+             <fieldset>
+          <label for="username">Username or Email</label>
+          <input type="text" id="username" >
+          <label for="password">Password</label>
+          <input type="password" id = "password">
+          <a href="#">Forgot your password?</a>
+          <button class="primaryBtn" type="submit">Sign in</button>
+          <div class="separator"></div>
+          <span>Don't have an account yet?</span>
+          <button class="secondaryBtn">Sign up</button>
+        </fieldset>
+    </form>
+   </div>
+   <div class="right"></div>
+    </form>
+      <script src="../../script/login.js"></script>
 </body>
 
 </html>

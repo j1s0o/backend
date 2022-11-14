@@ -4,6 +4,7 @@ import  apiRouter  from "./router/apiRouter"
 import userRouter from "./router/userRouter"
 import { config } from "./config/config"
 import Logger from "./middlewares/appLogger"
+import Verify_Token from "./middlewares/auth"
 import mongoose from "mongoose"
 
 
@@ -15,6 +16,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended : false}))
 app.use(express.static(__dirname + '/views'));
 app.use(bodyParser.json())
+
 app.use('/' , apiRouter)
 app.use('/user' , userRouter)
 

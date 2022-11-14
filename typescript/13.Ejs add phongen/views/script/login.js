@@ -16,7 +16,11 @@ async function LoginUser(event) {
             password
         }),
     }).then((res) => res.json())
-    if (result.success === true) {
-        window.location.href = "/";
+    if (result.process === true) {
+        // window.location.href = "/";
+        document.cookie = `Session=${result.session}`
+    }
+    else {
+        
     }
 }
