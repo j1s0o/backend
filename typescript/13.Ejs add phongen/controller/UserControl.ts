@@ -1,13 +1,33 @@
 import express from 'express'
 import mongoose from 'mongoose'
 import dotenv from 'dotenv'
-import User from './../models/User'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import { validationResult } from 'express-validator'
+import User from './../models/User'
 
 dotenv.config()
-const SECRET_TOKEN : any = process.env.SECRET_TOKEN
+const SECRET_TOKEN: any = process.env.SECRET_TOKEN
+
+const Verify_Token = (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    const token = req.cookies['Session']
+    if (!token) {
+        return res.redirect('/login')
+    }
+    else {
+        try {
+            const result = jwt.verify(token, SECRET_TOKEN)
+            return res.json({ result })
+        }
+        catch (err) {
+            return res.redirect('/login')
+        }
+    }
+
+}
+
+
+
 const Register = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     const { username, password } = req.body
     const err = validationResult(req)
@@ -36,7 +56,7 @@ const Register = async (req: express.Request, res: express.Response, next: expre
 
 }
 
-const Login =   (req: express.Request, res: express.Response, next: express.NextFunction) => {
+const Login = (req: express.Request, res: express.Response, next: express.NextFunction) => {
     const { username, password } = req.body
     const err = validationResult(req)
     if (!err.isEmpty()) {
@@ -47,13 +67,13 @@ const Login =   (req: express.Request, res: express.Response, next: express.Next
             return res.status(500)
         }
         else {
-                bcrypt.compare(password, user.password, function (err, result) {
+            bcrypt.compare(password, user.password, function (err, result) {
                 if (result === false) {
-                    return res.json({ process : false })
+                    return res.json({ process: false })
                 }
                 else {
-                    const session = jwt.sign(user.username  ,SECRET_TOKEN)
-                    return res.json({ process : true  , session : session})
+                    const session = jwt.sign(user.username, SECRET_TOKEN)
+                    return res.json({ process: true, session: session })
                 }
             })
         }
@@ -89,32 +109,19 @@ const DeleteUser = (req: express.Request, res: express.Response, next: express.N
 }
 
 const AllUser = (req: express.Request, res: express.Response, next: express.NextFunction) => {
-    const { username, password } = req.body
-    const err = validationResult(req)
-    if (!err.isEmpty()) {
-        return res.status(400).json({ errors: err.array() })
-    }
-    User.findOne({ username: `admin` }, function (err: any, admin: any) {
-        if (!admin) {
-            res.status(500).json({ msg: `Admin was deleted` })
-        }
-        else if (username !== `admin`) {
-            res.status(500).json({ msg: `Please login to admin` })
-        }
-        else {
-            bcrypt.compare(password, admin.password, function (err: any, result: any) {
-                if (result === false) {
-                    res.status(500).json({ msg: `Fail to login as admin` })
-                }
-                else {
-                    return User.find()
-                        .then((user) => res.status(200).json({ user }))
-                        .catch((err) => res.status(500).json({ err }))
-                }
-            })
-        }
-    })
+    return User.find()
+        .then((user) => res.status(200).json({ user }))
+        .catch((err) => res.status(500).json({ err }))
+
 }
 
-export default { Register, Login, DeleteUser, AllUser }
+const test = (req: express.Request, res: express.Response, next: express.NextFunction) => {
+
+    const token = req.cookies['Session']
+    const auth = jwt.verify(token, SECRET_TOKEN)
+    return res.json({ auth })
+
+}
+
+export default { Register, Login, DeleteUser, AllUser, test, Verify_Token }
 

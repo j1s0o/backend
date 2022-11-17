@@ -5,8 +5,12 @@ async function LoginUser(event) {
     event.preventDefault();
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
-
-    const result = await fetch('/user/login', {
+    const confirm = document.getElementById('confirm_password').value;
+    if (password !== confirm){
+        alert('cc')
+    }
+    else{
+        await fetch('/user/register', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -14,14 +18,15 @@ async function LoginUser(event) {
         body: JSON.stringify({
             username,
             password
-        }),
-    }).then((res) => res.json())
-    if (result.process === true) {
-        // window.location.href = "/";
-        document.cookie = `Session=${result.session}`
-        window.location.href = "/"
+        }).then(function (res) {
+            if(res.err === null){
+                window.location.href = '/login'
+            }
+            else{
+                alert('res.err')
+            }
+        })
+    })
     }
-    else {
-        
-    }
+
 }

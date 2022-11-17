@@ -4,20 +4,19 @@ import express from 'express'
 dotenv.config()
 const SECRET_TOKEN : any = process.env.SECRET_TOKEN
 const Verify_Token = (res: express.Response, req: express.Request, next: express.NextFunction) => {
-    const token = req.cookies('Session')
-
+    const token = req.cookies['Session']
     if(!token){
-        res.sendStatus(401)
+        res.sendStatus(401).render('/login')
     }
     else{
         try {
             const decode = jwt.verify(token, SECRET_TOKEN)
-            return decode
         }
         catch (err) {
-            res.sendStatus(500)
+            res.sendStatus(401).render('/login')
         }
     }
+    next()
 }
 
 export default {Verify_Token}

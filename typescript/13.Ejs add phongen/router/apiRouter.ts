@@ -10,11 +10,14 @@ apiRouter.get('/' , (req:express.Request, res:express.Response) =>{
 })
 
 apiRouter.get('/login' , (req:express.Request, res:express.Response) =>{
-    res.status(200).render(path.join('html/user' , 'login'))
+    res.status(200).render(path.join('html/api' , 'login'))
 })
 
 apiRouter.get('/register' , (req:express.Request, res:express.Response) =>{
-    res.status(200).render(path.join('html/user' , 'register'))
+    res.status(200).render(path.join('html/api' , 'register'))
 })
 
+apiRouter.get('/users' , (req:express.Request, res:express.Response) =>{
+    res.status(200).render(path.join('html/api' , 'users'))
+})
 export default apiRouter

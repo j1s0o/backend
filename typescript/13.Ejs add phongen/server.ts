@@ -1,13 +1,13 @@
 import express, { application } from "express"
 import bodyParser from 'body-parser'
+import mongoose from "mongoose"
+import cookieParser from "cookie-parser"
+
+
 import  apiRouter  from "./router/apiRouter"
 import userRouter from "./router/userRouter"
 import { config } from "./config/config"
 import Logger from "./middlewares/appLogger"
-import Verify_Token from "./middlewares/auth"
-import mongoose from "mongoose"
-
-
 
 
 const app:express.Application = express();
@@ -16,9 +16,12 @@ app.use(express.json())
 app.use(express.urlencoded({extended : false}))
 app.use(express.static(__dirname + '/views'));
 app.use(bodyParser.json())
+app.use(cookieParser())
 
 app.use('/' , apiRouter)
 app.use('/user' , userRouter)
+
+
 
 mongoose
     .connect(config.mongo.url, { retryWrites: true, w: 'majority' })
@@ -29,7 +32,6 @@ mongoose
         Logger.error('Failed to connect to Mongodb')
         Logger.error(err)
     })
-
 
 
 
