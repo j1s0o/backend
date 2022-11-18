@@ -9,10 +9,7 @@ userRouter.get('/')
 userRouter.get('/verify' , UserControl.Verify_Token) 
 userRouter.get('/test' ,UserControl.test)
 
-userRouter.post('/register' , [
-    body('username').not().isEmpty().withMessage('Where is your username ???'),
-    body('password').not().isEmpty().withMessage(`Fuck why u don\'t have a password`)
-] ,UserControl.Register)
+userRouter.post('/register' ,UserControl.Register)
 
 userRouter.post('/login',UserControl.Login) 
 

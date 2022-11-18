@@ -32,14 +32,14 @@ const Register = async (req: express.Request, res: express.Response, next: expre
     const { username, password } = req.body
     const err = validationResult(req)
     if (!err.isEmpty()) {
-        return res.status(400).json({ errors: err.array() })
+        return res.status(400)
     }
 
     let salt = await bcrypt.genSalt(10)
     let hashpassword = await bcrypt.hash(password, salt)
     User.findOne({ username }, function (err: any, user: any) {
         if (user) {
-            return res.status(500).json({ msg: `User already exists` })
+            return res.json({ process: false })
         }
         else {
             const user = new User({
@@ -47,10 +47,8 @@ const Register = async (req: express.Request, res: express.Response, next: expre
                 username,
                 password: hashpassword
             })
-            return user
-                .save()
-                .then((user) => res.status(201).json({ user }))
-                .catch((error) => res.status(500).json({ error }))
+            user.save()
+            return res.json({ process: true })
         }
     })
 

@@ -25,20 +25,12 @@ h1 {
 input{
     color : #554A3D;
 }
-span, label, button, a {
+a , span, label, button, a {
   font-family: 'Cormorant Garamond', serif;
   color: #554A3D;
   }
 
-a {
-  text-decoration: none;
-  font-size: 16px;
-  font-weight: 400;
-  margin-top: 8px;
-  /*flex*/
-  display: flex;  
-  justify-content: flex-end;
-  }
+
 
 fieldset {
   border: none;
