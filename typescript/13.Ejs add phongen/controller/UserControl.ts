@@ -17,7 +17,15 @@ const Verify_Token = (req: express.Request, res: express.Response, next: express
     else {
         try {
             const result = jwt.verify(token, SECRET_TOKEN)
-            return res.json({ result })
+            User.findOne({username : result} , function (err : any , user : any) {
+                if (!user) {
+                    return res.redirect('/login')
+                }
+                else{
+                    return res.json({ result })
+                }
+            })
+            
         }
         catch (err) {
             return res.redirect('/login')
@@ -112,14 +120,33 @@ const AllUser = (req: express.Request, res: express.Response, next: express.Next
         .catch((err) => res.status(500).json({ err }))
 
 }
-
+const Logout = (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    return res.clearCookie("Session").end()
+}
 const test = (req: express.Request, res: express.Response, next: express.NextFunction) => {
-
     const token = req.cookies['Session']
-    const auth = jwt.verify(token, SECRET_TOKEN)
-    return res.json({ auth })
+    if (!token) {
+        return res.redirect('/login')
+    }
+    else {
+        try {
+            const result = jwt.verify(token, SECRET_TOKEN)
+            User.findOne({username : result} , function (err : any , user : any) {
+                if (!user) {
+                    return res.json({ mess : "ahahahahha"})
+                }
+                else{
+                    return res.json({ result })
+                }
+            })
+            
+        }
+        catch (err) {
+            return res.redirect('/login')
+        }
+    }
 
 }
 
-export default { Register, Login, DeleteUser, AllUser, test, Verify_Token }
+export default { Register, Login, DeleteUser, AllUser, test, Verify_Token  , Logout}
 

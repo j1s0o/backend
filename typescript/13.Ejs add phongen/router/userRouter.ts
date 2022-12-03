@@ -22,6 +22,6 @@ userRouter.get('/all',  [
     body('username').not().isEmpty().withMessage('Where is your username ???'),
     body('password').not().isEmpty().withMessage(`Fuck why u don\'t have a password`)
 ] , UserControl.AllUser )
-
+userRouter.get('/logout' , UserControl.Logout)
 
 export default userRouter
