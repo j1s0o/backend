@@ -1,0 +1,89 @@
+#menu-container {
+  position: fixed;
+  display: block;
+  padding: 0px;
+  width: 0px;
+  height: 100%;
+  background: transparent;
+  opacity: 0.75;
+  border-right: 3px solid transparent;
+  transition: width 0.5s cubic-bezier(.3,.65,.44,1), padding 0.25s ease-in-out, background 0.65s ease, opacity 0.25s ease;
+  transition-delay: 0.35s;
+}
+
+#menu-container:hover {
+  position: fixed;
+  display: block;
+  padding: 0px;
+  width: 300px;
+  height: 100%;
+  background: #8ba4d7;
+  opacity: 1;
+  transition: inherit inherit inherit;
+  transition-delay: 0s;
+}
+#menu-container.hover{
+  position: fixed;
+  display: block;
+  padding: 0px;
+  width: 300px;
+  height: 100%;
+  background: #1a1a1a;
+  opacity: 1;
+  transition: inherit inherit inherit;
+  transition-delay: 0s;
+  
+}
+
+#menu-container > .link-container {
+  visibility: hidden;
+  overflow: hidden;
+  display: block;
+  transform: translatex(-150%);
+  transition: visibility 0.5s ease-in-out, transform 0.5s cubic-bezier(.3,.65,.44,1);
+  transition-delay: 0s;
+}
+
+#menu-container:hover > .link-container {
+  visibility: visible;
+  overflow: visible;
+  display: block;
+  transform: translatex(0%);
+  transition: inherit inherit inherit;
+  transition-delay: 0.15s;
+}
+#menu-container.hover > .link-container {
+  visibility: visible;
+  overflow: visible;
+  display: block;
+  transform: translatex(0%);
+  transition: inherit inherit inherit;
+  transition-delay: 0.15s;
+}
+
+.link-container {
+	border: 2px solid transparent;
+	border-bottom-color: #2a2a2a;
+	background: transparent;
+	height: 64px;
+	width: calc(inherit-5px);
+	color: rgb(10, 1, 1);
+	padding-top: 16px;
+	font-family: roboto;
+	font-weight: bold;
+	font-size: 20px;
+	line-height: 250%;
+	letter-spacing: 4px;
+	text-decoration: none;
+	text-align: left;
+	transition: background 0.25s ease;
+}
+
+.link-container:hover {
+  color:rgb(0, 0, 0);
+  cursor: pointer;
+	transition: inherit;
+}
+
+
+
