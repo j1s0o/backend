@@ -8,21 +8,45 @@ async function LoginUser(event) {
   const confirm = document.getElementById("confirm_password").value;
   if (password !== confirm) {
     alert("cc");
-  } else {
-    const result = await fetch("/user/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
+  } 
+  else {
+    // const result = await fetch("/user/register", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({
+    //     username,
+    //     password,
+    //   }),
+    // }).then((res) => res.json());
+    // if (result.process === true) {
+    //     window.location.href = '/login'
+    // } else {
+    //   alert("ccc")
+    // }
+    $.ajax({
+      type: "POST",
+      url: "/user/register",
+      data: JSON.stringify({
         username,
         password,
       }),
-    }).then((res) => res.json());
-    if (result.process === true) {
-        alert('register success')
-    } else {
-        alert('something went wrong')
-    }
+      headers: {
+        "Content-Type": "application/json",
+      },
+      dataType: "json",
+      success: function (res) {
+        if (res.process === true) {
+          window.location.href = "/login";
+        }
+        else{
+          document.getElementById("panel").innerHTML = "Something went wrong"
+          $(document).ready(function () {
+            $("#panel").slideDown("slow");
+          });
+        }
+      },
+    });
   }
 }

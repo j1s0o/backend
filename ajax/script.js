@@ -51,3 +51,17 @@ async function Button2 (event) {
     }
     xhr.send()
 }
+form3 = document.getElementById('form3')
+form3.addEventListener('submit' , Button3)
+async function Button3 (event){
+	event.prenventDefault()
+    $.ajax({
+        type: "GET",
+        url: "/search",
+        data: "data",
+        dataType: "dataType",
+        success: function (response) {
+            
+        }
+    });
+}

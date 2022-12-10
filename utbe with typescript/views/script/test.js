@@ -1,3 +1,5 @@
+document.getElementById('search').addEventListener('submit' , Search)
+
 async function Search(event) {
   event.preventDefault();
 
