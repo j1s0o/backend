@@ -6,6 +6,7 @@ import cookieParser from "cookie-parser"
 
 import  apiRouter  from "./router/apiRouter"
 import userRouter from "./router/userRouter"
+import videoRouter from "./router/videoRouter"
 import { config } from "./config/config"
 import Logger from "./middlewares/appLogger"
 
@@ -20,6 +21,7 @@ app.use(cookieParser())
 
 app.use('/' , apiRouter)
 app.use('/user' , userRouter)
+app.use('/video' , videoRouter)
 
 
 

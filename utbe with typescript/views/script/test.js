@@ -1,19 +1,27 @@
-document.getElementById('search').addEventListener('submit' , Search)
+const { fromEvent, of } = rxjs;
+const { delay, takeUntil, flatMap } = rxjs.operators;
+const card = document.querySelector('.clip');
+const mouseEnter$ = fromEvent(card, 'mouseenter');
+const mouseLeave$ = fromEvent(card, 'mouseleave');
 
-async function Search(event) {
-  event.preventDefault();
-
-  const search = document.getElementById("search-text").value;
-  $.ajax({
-    type: "POST",
-    url: "/search",
-    headers : {
-        "Content-Type": "application/json"
-    }, 
-    data: JSON.stringify({search}),
-    dataType: "json",
-    success: function (response) {
-        alert(JSON.stringify(response))
-    }
+mouseEnter$.subscribe(() => {
+  console.log('enter');
+  card.classList.add('hoverable');
 });
-}
+
+
+mouseEnter$.pipe(
+  flatMap(e => of(e).pipe(
+    delay(2500),
+    takeUntil(mouseLeave$)
+  )) 
+).subscribe(() => {
+  card.classList.remove('hoverable');
+  card.classList.add('show-play-icon');
+  console.log('remove');
+})
+
+mouseLeave$.subscribe(() => {
+  card.classList.remove('hoverable');
+  card.classList.remove('show-play-icon');
+});

@@ -4,7 +4,7 @@ async function Search(event) {
   const search = document.getElementById("search-text").value;
   $.ajax({
     type: "POST",
-    url: "/search",
+    url: "/video/search",
     headers : {
         "Content-Type": "application/json"
     }, 
