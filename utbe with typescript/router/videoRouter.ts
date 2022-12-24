@@ -10,5 +10,6 @@ videoRouter.post('/video_add', VideoConttrol.Video_add)
 videoRouter.get('/add_video' , (req:express.Request, res:express.Response) =>{
     res.status(200).render(path.join('html/video' , 'add_video'))
 })
-videoRouter.get('/all' , VideoConttrol.getVideo)
+videoRouter.get('/admin' , VideoConttrol.getVideo)
+videoRouter.post('/delete' , VideoConttrol.DeleteVideo)
 export default videoRouter

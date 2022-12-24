@@ -25,6 +25,7 @@ apiRouter.get('/test' , (req:express.Request, res:express.Response) =>{
 })
 apiRouter.get('/video' ,  (req:express.Request, res:express.Response) =>{
     res.status(200).render(path.join('html/video' , 'video'))
+    
 })
 apiRouter.post('/search' , ApiConttrol.Search)
 export default apiRouter

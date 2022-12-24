@@ -40,10 +40,22 @@ const Video_add = (req: express.Request, res: express.Response, next: express.Ne
         }
     })
 }
+const DeleteVideo = (req: express.Request, res: express.Response, next:express.NextFunction) =>{
+    const  name  = req.body.name
+    Video.findOne({name} , function (err:any , result:any) {
+        if(!result){
+            return res.json({ 'process' : false})
+        }
+        else{
+            result.delete()
+            return res.json({'process' : true})
+        }
+    })
+}
 
 const getVideo = (req: express.Request, res: express.Response, next: express.NextFunction) => {
     return Video.find()
     .then((video) => res.status(200).json({ video }))
     .catch((err) => res.status(500).json({ err }))
 }
-export default { Search , Video_add  , getVideo}
+export default { Search , Video_add  , getVideo , DeleteVideo}
